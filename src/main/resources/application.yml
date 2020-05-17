@@ -1,43 +1,23 @@
-#server:
-#  port: 8088
-#spring:
-#  application:
-#    name: spring-batch-study
-#  #mysql 相关
-#  datasource:
-#    url: jdbc:mysql://47.105.78.73:3306/kevin?characterEncoding=utf8&useSSL=false
-#    username: root
-#    password: 111111
-#    schema: classpath:/org/springframework/batch/core/schema-mysql.sql
-#    #下免的配置是再初始化的时候会执行上面的schema-mysql.sql中的表
-#    initialize-schema: always
-#
-#  #下面为连接池相关配置
-#  dbcp2:
-#    #初始化连接池大小
-#    initial-size: 10
-#    #陪住最小连接池数
-#    min-idle: 10
-#    #配置最大连接池数
-#    max-idle: 30
-#    #配置获取超时连接的等待时间
-#    max-wait-millis: 30000
-#    #配置多长时间进行一次检测,检测需要关闭的数据库连接
-#    time-between-eviction-runs-millis: 200000
-#    #配置连接在连接池的最小生存时间
-#    remove-abandoned-on-maintenance: 200000
-#  jpa:
-#    #配置数据库类型
-#    database: MYSQL
-#    #配置是否打印sql
-#    show-sql: true
-#    #Hibernate相关配置
-#    hibernate:
-#      #配置级联等级
-#      ddl-auto: update
-#      naming:
-#        #命名策略
-#        strategy: org.hibernate.cfg.ImprovedNamingStrategy
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MySQL5Dialect
+server:
+  port: 8088
+spring:
+  application:
+    name: spring-batch-study
+  #mysql 相关
+  datasource:
+    url: jdbc:mysql://47.105.78.73:3306/kevin?characterEncoding=utf8&useSSL=false
+    username: root
+    password: 111111
+    #创建spring batch 需要的表，利用已经写好的schema文件
+    schema: classpath:/org/springframework/batch/core/schema-mysql.sql
+#    driver-class-name: com.mysql.jdbc.Driver //已经是的deprecated
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  batch:
+    #初始化的时候会执行上面的schema-mysql.sql中的表
+    initialize-schema: always
+
+
+
+
