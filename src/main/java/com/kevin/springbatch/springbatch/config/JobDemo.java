@@ -15,29 +15,53 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @EnableBatchProcessing
-public class JobConfiguration {
-    //注入创建对象的 对象
+public class JobDemo {
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
 
-    //注入创建step对象的 对象
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
 
-    //开始创建任务
     @Bean
-    public Job helloWorld() {
-        return jobBuilderFactory.get("helloWorld")
-                .start(step1())
+    public Job jobDemoJob() {
+        return jobBuilderFactory.get("jobDemoJob3")
+                //第一种设计方式
+//                .start(step1())
+//                .next(step2())
+//                .next(step3())
+//                .build();
+                //第二种： 增加条件
+                .start(step1()).on("COMPLETED").to(step2())
+                .from(step2()).on("COMPLETED").to(step3()) // .fail()  // .stopAndRestart
+                .from(step3()).end()
                 .build();
+
     }
 
     @Bean
     public Step step1() {
         return stepBuilderFactory.get("step1")
                 .tasklet((contribution, chunkContext) -> {
-                    System.out.println("hello world");
-                    return RepeatStatus.FINISHED ;
+                    System.out.println("step1");
+                    return RepeatStatus.FINISHED;
+                }).build();
+    }
+
+    @Bean
+    public Step step2() {
+        return stepBuilderFactory.get("step2")
+                .tasklet((contribution, chunkContext) -> {
+                    System.out.println("step2");
+                    return RepeatStatus.FINISHED;
+                }).build();
+    }
+
+    @Bean
+    public Step step3() {
+        return stepBuilderFactory.get("step3")
+                .tasklet((contribution, chunkContext) -> {
+                    System.out.println("step3");
+                    return RepeatStatus.FINISHED;
                 }).build();
     }
 
