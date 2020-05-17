@@ -17,6 +17,15 @@ spring:
   batch:
     #初始化的时候会执行上面的schema-mysql.sql中的表
     initialize-schema: always
+    job:
+#      names: ParentJobName,listenerDemoJob2,parametersDemo3 #指定job名字
+#      names: parametersDemo4 #指定job名字
+#      names: itemReadDemo1 #指定job名字
+#      names: ItemReadMysqlMethod1 #指定job名字
+#      names: readFileDemo1 #指定job名字
+#      names: readXMLDemo1 #指定job名字
+#      names: readMultiFileDemo1 #指定job名字
+      names: readMultiFileDemo3 #指定job名字
 
 
 

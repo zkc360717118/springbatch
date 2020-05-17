@@ -29,7 +29,7 @@
             <scope>test</scope>
         </dependency>
 
-<!--        配置一个数据库，否则就算不写任何代码，只要引入了上面spring batch的包，就会启动报错-->
+<!--        配置一个数据库，否则就算不写任何代码，只要引入了上面spring batch的包，就会启动报错  begin-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -38,7 +38,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-
+        <!--        配置一个数据库，否则就算不写任何代码，只要引入了上面spring batch的包，就会启动报错  end-->
 
         <dependency>
             <groupId>org.springframework.batch</groupId>
@@ -46,7 +46,17 @@
             <scope>test</scope>
         </dependency>
 
-
+    <!--        xml使用 比如转对象   gegin -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+        <!--        xml使用 比如转对象   end -->
     </dependencies>
 
 

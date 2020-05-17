@@ -1,66 +1,75 @@
-package com.kevin.springbatch.springbatch.config;
+package com.kevin.springbatch.springbatch.study;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.scope.context.ChunkContext;
-import org.springframework.batch.core.step.tasklet.Tasklet;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
+/**
+ * 展示如果创建job和多个step
+ */
 @Configuration
 @EnableBatchProcessing
-public class JobDemo {
+public class FlowDemo {
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
 
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
 
+
     @Bean
-    public Job jobDemoJob() {
-        return jobBuilderFactory.get("jobDemoJob3")
-                //第一种设计方式
-//                .start(step1())
-//                .next(step2())
-//                .next(step3())
-//                .build();
-                //第二种： 增加条件
-                .start(step1()).on("COMPLETED").to(step2())
-                .from(step2()).on("COMPLETED").to(step3()) // .fail()  // .stopAndRestart
-                .from(step3()).end()
+    public Job jobWithFlow() {
+        return jobBuilderFactory.get("jobWithFlow2")
+                .start(flowDemoFlow())
+                .next(steptest3())
+                .end()
                 .build();
+    }
 
+    /**
+     * 创建flow(其实就是把多个step放到flow包在一起)
+     * @return
+     */
+    @Bean
+    public Flow flowDemoFlow() {
+        return new FlowBuilder<Flow>("flowDemoFlow")
+                .start(flow_step1())
+                .next(flow_step2())
+                .build();
     }
 
     @Bean
-    public Step step1() {
-        return stepBuilderFactory.get("step1")
+    public Step flow_step1() {
+        return stepBuilderFactory.get("flow_step1")
                 .tasklet((contribution, chunkContext) -> {
-                    System.out.println("step1");
+                    System.out.println("flow step1");
                     return RepeatStatus.FINISHED;
                 }).build();
     }
 
     @Bean
-    public Step step2() {
-        return stepBuilderFactory.get("step2")
+    public Step flow_step2() {
+        return stepBuilderFactory.get("flow_step2")
                 .tasklet((contribution, chunkContext) -> {
-                    System.out.println("step2");
+                    System.out.println("flow step2");
                     return RepeatStatus.FINISHED;
                 }).build();
     }
 
     @Bean
-    public Step step3() {
-        return stepBuilderFactory.get("step3")
+    public Step steptest3() {
+        return stepBuilderFactory.get("flow_step3")
                 .tasklet((contribution, chunkContext) -> {
-                    System.out.println("step3");
+                    System.out.println("flow step3");
                     return RepeatStatus.FINISHED;
                 }).build();
     }
