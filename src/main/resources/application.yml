@@ -10,7 +10,7 @@ spring:
     password: 111111
     #创建spring batch 需要的表，利用已经写好的schema文件
     schema: classpath:/org/springframework/batch/core/schema-mysql.sql
-#    driver-class-name: com.mysql.jdbc.Driver //已经是的deprecated
+#    driver-class-name: com.mysql.jdbc.Driver  //已经是deprecated
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
