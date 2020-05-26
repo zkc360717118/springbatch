@@ -67,14 +67,9 @@ public class ItemReadFileDemo {
         //转换成User
         DefaultLineMapper<User> mapper = new DefaultLineMapper<>();
         mapper.setLineTokenizer(tokenizer);
-        mapper.setFieldSetMapper(new FieldSetMapper<User>() {
-            @Override
-            public User mapFieldSet(FieldSet fieldSet) throws BindException {
-                return new User(fieldSet.readInt("uid"),
-                        fieldSet.readString("username"),
-                        fieldSet.readString("password"));
-            }
-        });
+        mapper.setFieldSetMapper(fieldSet -> new User(fieldSet.readInt("uid"),
+                fieldSet.readString("username"),
+                fieldSet.readString("password")));
 
         mapper.afterPropertiesSet(); //没搞懂这个干啥的
 
