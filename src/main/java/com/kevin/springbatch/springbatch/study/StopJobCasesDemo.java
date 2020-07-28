@@ -71,6 +71,7 @@ public class StopJobCasesDemo {
     @StepScope
     public FlatFileItemReader<FieldSet> fileItemReader(
             @Value("#{jobParameters['transactionFile']}") Resource inputFile) {
+        System.out.println("test StopJobCasesDemo.fileItemReader()哈哈哈");
         return new FlatFileItemReaderBuilder<FieldSet>()
                 .name("fileItemReader")
                 .resource(inputFile)

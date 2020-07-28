@@ -30,7 +30,8 @@ spring:
 #      names: readMultiFileDemo1 #指定job名字
 #      names: readMultiFileDemo3 #指定job名字
 #      names: restartJobTest9 #指定job名字/
-      names: transactionJob31 #指定job名字
+#      names: transactionJob31 #指定job名字
+      names: ItemWriterDemoJob1 #指定job名字
 
 
 
